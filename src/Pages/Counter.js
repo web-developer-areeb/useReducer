@@ -1,14 +1,19 @@
 import { useReducer } from "react";
 
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+const VALUE_TO_ADD = 'VALUE_TO_ADD';
+const ADD_VALUE = 'ADD_VALUE';
+
 const reducer = (state, action) => {
   switch(action.type) {
-    case 'INCREMENT':
-      return {...state, count: state.count+action.payload}
-    case 'DECREMENT':
-      return {...state, count: state.count-action.payload}
-    case 'VALUE_TO_ADD':
+    case INCREMENT:
+      return {...state, count: state.count + 1}
+    case DECREMENT:
+      return {...state, count: state.count - 1}
+    case VALUE_TO_ADD:
       return {...state, valueToAdd: action.payload}
-    case 'ADD_A_LOT':
+    case ADD_VALUE:
       return {...state, count: state.count+state.valueToAdd}
   }
 }
@@ -27,13 +32,13 @@ const CounterForm = () => {
       </p>
       <button
         className="mb-3 bg-emerald-500 text-white px-5 py-2 rounded"
-        onClick={() => dispatch({type: 'INCREMENT', payload: 1})}
+        onClick={() => dispatch({type: INCREMENT})}
       >
         Increment
       </button>
       <button
         className="ml-3 mb-3 bg-emerald-500 text-white px-5 py-2 rounded"
-        onClick={() => dispatch({type: 'DECREMENT', payload: 1})}
+        onClick={() => dispatch({type: DECREMENT})}
       >
         Decrement
       </button>
@@ -41,11 +46,11 @@ const CounterForm = () => {
       <input
         type="number"
         value={state.valueToAdd || ''}
-        onChange={(e) => dispatch({type: 'VALUE_TO_ADD', payload: +e.target.value})}
+        onChange={(e) => dispatch({type: VALUE_TO_ADD, payload: +e.target.value})}
         className="mb-5 block border p-2"
       />
       <button
-        onClick={() => dispatch({type: 'ADD_A_LOT', payload: state.valueToAdd})}
+        onClick={() => dispatch({type: ADD_VALUE})}
         className="bg-emerald-500 text-white px-5 py-2 rounded"
       >
         Add it
